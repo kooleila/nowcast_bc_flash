@@ -78,6 +78,7 @@ par.row <- which(grib_paramnb$parnumb==param)
 # correlation length km
 #clen <- 30 # limited for SYNOP from 50 --> 30km 
 #clenx <- 10 # smaller correlation length used for NetAtmo data
+#############
 clenf <- 20 # correlation length for flash strikes
 # land sea mask used
 #LSM <- readRDS('MEPS_lsm.Rds') # only sea (+Vänern and Wettern)
@@ -108,7 +109,7 @@ obs_param <- grib_paramnb$obs_parm[par.row]
 
 if (obs_param == 'flash') {
   t1 <- atime  
-  startt <- t1-60*40 # flash data retrieved from 30min interval 10min to and 20min past the hour
+  startt <- t1-60*40 # flash data retrieved from 60min interval 40min to and 20min past the hour
   endt <- t1+60*20
   obs <- tryCatch(fread(paste("http://smartmet.fmi.fi/timeseries?producer=flash&tz=gmt&starttime=",startt,"&endtime=",endt,"&param=peak_current,flash_id,latitude,longitude,utctime&bbox=5,52,33,71&format=ascii",sep="")), error=function(e) NA)
   print(obs)
